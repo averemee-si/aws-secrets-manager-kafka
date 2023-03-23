@@ -1,0 +1,89 @@
+/**
+ * Copyright (c) 2018-present, A2 Rešitve d.o.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See
+ * the License for the specific language governing permissions and limitations under the License.
+ */
+
+plugins {
+	id "java-library"
+	id "com.github.johnrengelman.shadow" version "7.1.2"
+	id "org.owasp.dependencycheck" version "8.2.0"
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(11)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+import java.nio.file.Paths
+
+def readVersion() {
+	def versionPropsFile = file(Paths.get("src","main","resources","version.properties"))
+	if (versionPropsFile.canRead()) {
+		Properties versionProps = new Properties()
+
+		if (versionPropsFile.canRead()) {
+			versionProps.load(new FileInputStream(versionPropsFile))
+		}
+		versionProps['version']
+	} else {
+		throw new GradleException("Could not read version.properties!")
+	}
+}
+
+version = readVersion()
+group "solutions.a2.kafka.config.aws"
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    def kafkaVersion = "3.1.2"
+    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
+    compileOnly("org.apache.kafka:kafka-clients:$kafkaVersion")
+
+    def awsSdkVersion = "2.20.27"
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/secretsmanager
+    implementation("software.amazon.awssdk:secretsmanager:$awsSdkVersion")
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/sts
+    implementation("software.amazon.awssdk:sts:$awsSdkVersion")
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/bom
+    implementation(platform("software.amazon.awssdk:bom:$awsSdkVersion"))
+
+    def commonsLang3Version = "3.12.0"
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
+
+    def sl4jVersion = "2.0.7"
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:$sl4jVersion")
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j
+    implementation("org.slf4j:slf4j-reload4j:$sl4jVersion")
+
+    def jUnitVersion = "5.9.2"
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$jUnitVersion")
+}
+
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
+test {
+    useJUnitPlatform {
+        excludeTags 'ignored'
+    }
+}
