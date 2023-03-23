@@ -44,6 +44,7 @@ Credentials for accessing AWS services, use only when you need to overwrite cred
 Credentials secret for accessing AWS services. Required only when `cloud.access.key` is set
 
 ###cloud.secret.ttl.ms
+
 The time interval in ms during which the secret is considered valid. Default value - **Duration.ofDays(30).toMillis()**.
 Set the value according to the [key rotation](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html) schedule, when this time interval expires the [AWS Secret Manager](https://aws.amazon.com/secrets-manager/) is queried again, causing connector(s) to restart
 
