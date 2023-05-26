@@ -69,3 +69,15 @@ database.user=<${secretsManager:test/oracle/TESTDATA:username}>"
 database.password=<${secretsManager:test/oracle/TESTDATA:password}>"
 ```
 
+## Distribution
+1. [GitHub](https://github.com/averemee-si/aws-secrets-manager-kafka/)
+2. [Maven Central](https://mvnrepository.com/artifact/solutions.a2.kafka/aws-secrets-manager-kafka/)
+
+## Authors
+
+* **Aleksej Veremeev** - *Initial work* - [A2 Rešitve d.o.o.](http://a2-solutions.eu/)
+
+## License
+
+This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details
+
