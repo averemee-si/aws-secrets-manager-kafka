@@ -33,6 +33,7 @@ import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.sts.StsClient;
 
 /**
+ * AWS Secrets Manager Provider for Kafka configuration
  *  
  * @author <a href="mailto:averemee@a2.solutions">Aleksei Veremeev</a>
  * 
@@ -63,7 +64,11 @@ public class AwsSecretsManagerProviderConfig extends AbstractConfig {
 				;
 	}
 
-
+	/**
+	 * Provider configuration
+	 * @param originals
+	 * @throws KafkaException
+	 */
 	public AwsSecretsManagerProviderConfig(Map<?, ?> originals) throws KafkaException {
 		super(config(), originals);
 
@@ -81,14 +86,27 @@ public class AwsSecretsManagerProviderConfig extends AbstractConfig {
 		secretTtlMs = this.getLong("cloud.secret.ttl.ms");
 	}
 
+	/**
+	 * Returns AWS region
+	 * @return
+	 */
 	public Region getRegion() {
 		return region;
 	}
 
+	/**
+	 * Returns secret TTL in ms
+	 * @return
+	 */
 	public long getSecretTtlMs() {
 		return secretTtlMs;
 	}
 
+	/**
+	 * Returns AWS Secrets Manager Client
+	 * @return
+	 * @throws KafkaException
+	 */
 	public SecretsManagerClient getSecretsManagerClient() throws KafkaException {
 		if (StringUtils.isBlank(this.getString("cloud.access.key"))) {
 			LOGGER.debug("Credentials will be used from Instance/Task Role, environment, etc...");
@@ -117,6 +135,11 @@ public class AwsSecretsManagerProviderConfig extends AbstractConfig {
 		}
 	}
 
+	/**
+	 * Returns AWS STS Client
+	 * @return
+	 * @throws KafkaException
+	 */
 	public StsClient getStsClient() throws KafkaException {
 		if (StringUtils.isBlank(this.getString("cloud.access.key"))) {
 			LOGGER.debug("Credentials will be used from Instance/Task Role, environment, etc...");

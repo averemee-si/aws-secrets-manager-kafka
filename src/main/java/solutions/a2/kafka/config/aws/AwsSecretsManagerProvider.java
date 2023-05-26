@@ -39,6 +39,7 @@ import software.amazon.awssdk.services.secretsmanager.model.ResourceNotFoundExce
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
 
 /**
+ * AWS Secrets Manager Provider for Kafka
  *  
  * @author <a href="mailto:averemee@a2.solutions">Aleksei Veremeev</a>
  * 
@@ -135,6 +136,11 @@ public class AwsSecretsManagerProvider implements ConfigProvider {
 		return parseResponse(response.secretString());
 	}
 
+	/**
+	 * Returns AWS Secrets Manager response as two strings
+	 * @param secretValues AWS Secrets Manager response in JSON format
+	 * @return String pair: username and password
+	 */
 	public static Map<String, String> parseResponse(String secretValues) {
 		Map<String, String> secretData = new HashMap<>();
 		final String allValues = StringUtils.substringBefore(StringUtils.substringAfter(secretValues, "{"), "}");
