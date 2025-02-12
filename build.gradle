@@ -59,7 +59,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
     compileOnly("org.apache.kafka:kafka-clients:$kafkaVersion")
 
-    def awsSdkVersion = "2.20.73"
+    def awsSdkVersion = "2.30.17"
     // https://mvnrepository.com/artifact/software.amazon.awssdk/secretsmanager
     implementation("software.amazon.awssdk:secretsmanager:$awsSdkVersion")
     // https://mvnrepository.com/artifact/software.amazon.awssdk/sts
