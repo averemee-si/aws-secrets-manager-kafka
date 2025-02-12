@@ -67,7 +67,7 @@ dependencies {
     // https://mvnrepository.com/artifact/software.amazon.awssdk/bom
     implementation(platform("software.amazon.awssdk:bom:$awsSdkVersion"))
 
-    def commonsLang3Version = "3.12.0"
+    def commonsLang3Version = "3.17.0"
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
 
