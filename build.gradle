@@ -55,7 +55,7 @@ repositories {
 }
 
 dependencies {
-    def kafkaVersion = "3.3.2"
+    def kafkaVersion = "3.9.0"
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
     compileOnly("org.apache.kafka:kafka-clients:$kafkaVersion")
 
